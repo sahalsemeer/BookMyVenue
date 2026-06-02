@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { isLowercase } = require("validator");
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -8,6 +9,9 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    lowecase:true,
+    trim:true,
+    unique:true
   },
   password: {
     type: String,

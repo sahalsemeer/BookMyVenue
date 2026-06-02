@@ -1,7 +1,9 @@
 const authService = require("../services/auth.service");
+const validate = require("../utils/validate")
 
 const signup = async (req, res, next) => {
     try {
+        validate(req)
         const result = await authService.signup(req.body);
         res.cookie("token", result.token);
         return res
@@ -25,4 +27,4 @@ const login = async (req, res, next) => {
     }
 };
 
-module.exports = {signup,login};
+module.exports = { signup, login };
