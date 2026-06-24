@@ -13,4 +13,23 @@ function validate(req) {
   return true;
 }
 
-module.exports = validate;
+const allowedItems = [
+  "name",
+  "address",
+  "description",
+  "city",
+  "state",
+  "capacity",
+  "price",
+];
+
+function UpdateVenueAllowedItems(data) {
+  if (!data) return false;
+  const userReq = Object.keys(data);
+  if (userReq.length === 0) {
+    return false;
+  }
+  return userReq.every((item) => allowedItems.includes(item));
+}
+
+module.exports = { validate, UpdateVenueAllowedItems };

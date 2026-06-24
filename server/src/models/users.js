@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     enum: ["customer","owner"],
   },
-});
+},{timestamps:true});
 
 const userModel = mongoose.model("user", UserSchema);
 
