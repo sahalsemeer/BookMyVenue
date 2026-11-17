@@ -13,15 +13,53 @@ const venueSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
     },
-    address: {
+    bookingTypes: {
+      type: [String],
+      required: true,
+      trim: true,
+      lowercase: true,
+      enum: ["hourly", "daily"],
+    },
+    availability: {
+      workingDays: {
+        type: [
+          {
+            type: String,
+            enum: [
+              "monday",
+              "tuesday",
+              "wednesday",
+              "thursday",
+              "friday",
+              "saturday",
+              "sunday",
+            ],
+          },
+        ],
+        required: true,
+      },
+
+      openingTime: {
+        type: String,
+        required: true,
+      },
+
+      closingTime: {
+        type: String,
+        required: true,
+      },
+
+      slotDuration: {
+        type: Number,
+        default: 60,
+        min: 1,
+      },
+    },
+    location: {
       type: String,
       required: true,
     },
     description: {
-      type: String,
-      required: true,
-    },
-    city: {
       type: String,
       required: true,
     },
@@ -33,9 +71,17 @@ const venueSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    price: {
+    pricePerHour: {
       type: Number,
       required: true,
+    },
+    pricePerDay: {
+      type: Number,
+      required: true,
+    },
+    rating: {
+      type: Number,
+      default: 0,
     },
     photos: [String],
   },
@@ -51,6 +97,10 @@ venueSchema.index(
     unique: true,
   },
 );
+
+// venueSchema.index({
+//   ownerId:1
+// })
 
 const venueModel = mongoose.model("venue", venueSchema);
 

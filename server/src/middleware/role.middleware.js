@@ -1,5 +1,7 @@
 const authorize = (...roles) => {
     return (req, res, next) => {
+        console.log(roles);
+        console.log(req.user.role);
         if(!req.user){
             return res.status(401).json({message:"Authentication required!"})
         }

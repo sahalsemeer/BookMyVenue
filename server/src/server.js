@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const connectDB = require("./config/database");
 const authRouter = require('./routes/auth.router')
 const venueRouter = require('./routes/venue.router')
+const bookingRouter = require('./routes/booking.router')
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(cookieParser())
 
 app.use('/',authRouter)
 app.use('/',venueRouter)
+app.use('/',bookingRouter)
 
 
 connectDB()

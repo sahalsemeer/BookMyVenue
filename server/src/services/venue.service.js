@@ -1,6 +1,22 @@
 const { default: mongoose } = require("mongoose");
 const venueModel = require("../models/venue");
 const uploadToCloudinary = require("../utils/uploadToCloudinary");
+
+// console.log(photoUrls);
+
+  //using for loop
+  // const photoUrls = []
+  // for (let file of files){
+  //   console.time(file.originalname)
+  //     console.log(
+  //     file.originalname,
+  //     (file.size / 1024 / 1024).toFixed(2) + " MB")
+  //   const result = await uploadToCloudinary(file.buffer);
+  //   console.timeEnd(file.originalname)
+  //   photoUrls.push(result.secure_url)
+  // }
+
+  
 //customers
 const getVenues = async (page, limit) => {
   const skip = (page - 1) * limit;
@@ -28,16 +44,17 @@ const getVenuesByID = async (id) => {
 //venueOwners
 const createVenue = async (venueData, ownerId, files) => {
   console.log(files);
-
-  const photoUrls = [];
-  const uploadPromises = files.map((file) => uploadToCloudinary(file.buffer));
-
-  const result = await Promise.all(uploadPromises)
-  photoUrls.push(result.secure_url)
-
-
-  // console.log(photoUrls);
-
+  // using promise.all();
+  const uploadPromises = files.map(async (file) => {
+    console.log(file.originalname, (file.size / 1024 / 1024).toFixed(2) + "MB");
+    console.time(file.originalname);
+    const result = await uploadToCloudinary(file.buffer);
+    console.timeEnd(file.originalname);
+    return result;
+  });
+  const results = await Promise.all(uploadPromises);
+  console.timeEnd("upload");
+  const photoUrls = results.map((file) => file.secure_url);
   const existingVenue = await venueModel.findOne({
     ownerId,
     name: venueData.name,

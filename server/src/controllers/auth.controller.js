@@ -1,5 +1,5 @@
 const authService = require("../services/auth.service");
-const validate = require("../utils/validate")
+const {validate} = require("../utils/validate")
 
 const signup = async (req, res, next) => {
     try {

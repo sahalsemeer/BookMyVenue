@@ -46,6 +46,7 @@ const createVenue = async (req, res, next) => {
   try {
     // console.log(req.files);
     // console.log(req.body);
+    console.log(req.user.id);
     const result = await venueService.createVenue(
       req.body,
       req.user.id,
@@ -64,7 +65,7 @@ const getMyVenues = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
+}
 
 const getMyVenuesByID = async (req, res, next) => {
   try {

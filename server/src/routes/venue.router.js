@@ -3,7 +3,7 @@ const router = express.Router()
 const venueController = require('../controllers/venue.controller')
 const {userAuth} = require('../middleware/auth.middleware')
 const {authorize} = require('../middleware/role.middleware')
-const Roles = require('../utils/constants')
+const {Roles} = require('../utils/constants')
 const upload = require('../middleware/upload.middlware')
 
 
